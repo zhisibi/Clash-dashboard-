@@ -48,6 +48,25 @@ build.sh                   # 构建脚本
 
 > 升级安装必须使用同一个签名文件，否则无法覆盖安装。
 
+### 自动发布 Release
+
+仓库已配置 GitHub Actions（`.github/workflows/release.yml`，构建脚本 `ci-build.sh`）：推送 `v*` 标签，或在 Actions 页手动运行 **Release**，即自动构建并发布 APK。
+
+```bash
+git tag v1.0.0 && git push origin v1.0.0
+```
+
+需在仓库 **Settings → Secrets and variables → Actions** 添加：
+
+| Secret | 内容 |
+| --- | --- |
+| `KEYSTORE_BASE64` | 签名文件 base64（`base64 -w0 release.keystore`） |
+| `KEYSTORE_PASSWORD` | 签名库密码 |
+| `KEY_ALIAS` | 密钥别名 |
+| `KEY_PASSWORD` | 密钥密码 |
+
+未设置时使用临时签名，无法覆盖安装正式版。
+
 ## 更新 Zashboard
 
 从 Zashboard 的 Releases 下载 `dist.zip`，解压覆盖 `app/assets/dist/` 后重新构建即可。
