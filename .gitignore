@@ -1,0 +1,7 @@
+build/
+tools/
+web/
+*.keystore
+*.jks
+*.apk
+.DS_Store
